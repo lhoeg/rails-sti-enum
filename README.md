@@ -4,6 +4,10 @@ Having used Rails STI many times, I came to wonder if it was possible (not neces
 
 It seems it is, although with a tiny tweak to set the type on creation :)
 
+*Drawbacks:* Manually edit Enum values to add new class.
+
+*Note:* Should explicitly map enum values' integer mapping to avoid disaster when adding/removing types!
+
 ## Initial Ruby and Rails versions
 
     mkdir rails-sti-enum
@@ -53,7 +57,7 @@ Enable Enums as STI type in `app/models/animal.rb`
 
     class Animal < ApplicationRecord
       before_create :set_type
-      enum type: ['Animal::Cat', 'Animal::Dog']
+      enum type: { 'Animal::Cat' => 0, 'Animal::Dog' => 1 }
 
       private
 
